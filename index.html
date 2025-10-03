@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Food Ordering System</title>
+   <link rel="stylesheet" href="/static/style.css">
+<style> 
+
+
+ body { font-family: Georgia, serif; padding: 20px; }
+        h1 { font-size: 30px; }
+        .menu { margin-bottom: 16px; }
+        #output { margin-top: 14px; }
+        input[type="text"] { width: 260px; margin-bottom: 6px; padding: 4px; }
+        .receipt { border: 1px solid #ccc; padding: 10px; width: 360px; background: #fafafa; 
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            margin: 0.3rem 0;
+            font-size: 1rem;
+        }
+        section {
+            background: white;
+            margin: 1.5rem auto;
+            width: 80%;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .table-container {
+      margin: 2rem auto;
+      width: 80%;
+      max-width: 500px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 0.8rem;
+      border: 1px solid #aaa;
+      text-align: center;
+    }
+    th {
+      background-color: #444;
+      color: white;
+    }
+    td {
+      background-color: #eee;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      color: #555;
+    }
+    
+        .status {
+            background: black;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Food Ordering System</h1>
+
+    <div class="menu">
+        <h3>Menu:</h3>
+        <label><input type="checkbox" class="menu-item" id="carbonara" value="Carbonara" data-price="150"> Carbonara (₱150)</label><br>
+        <label><input type="checkbox" class="menu-item" id="garlic"    value="Garlic Bread" data-price="80"> Garlic Bread (₱80)</label><br>
+        <label><input type="checkbox" class="menu-item" id="salad"     value="Caesar Salad" data-price="120"> Caesar Salad (₱120)</label><br>
+        <label><input type="checkbox" class="menu-item" id="tea"       value="Iced Tea" data-price="60"> Iced Tea (₱60)</label><br>
+        <label><input type="checkbox" class="menu-item" id="water"     value="Sparkling Water" data-price="40"> Sparkling Water (₱40)</label><br>
+    </div>
+
+    <div>
+        <h3>Customer Details:</h3>
+        <input type="text" id="custName" placeholder="Name"><br>
+        <input type="text" id="custAddr" placeholder="Address"><br>
+        <input type="text" id="custNum"  placeholder="Contact Number"><br><br>
+
+        <button id="createBtn">Create Order</button>
+    </div>
+
+    <div id="output"></div>
+
+    <py-script src="main.py"></py-script>
+</body>
+</html>
