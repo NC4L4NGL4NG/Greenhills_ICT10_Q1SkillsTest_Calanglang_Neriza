@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benjies Music Store - Order System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f8ff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        .summary-box {
+            background-color: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .back-btn {
+            display: block;
+            background: orange;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            margin: 15px auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+        <h1>Benjies Music Store</h1>
+        <p>Owner: Trinidad</p>
+        <p>Since 1956</p>
+    </header>
+
+<div class="container">
+    <h1> Ordering System</h1>
+
+     <div class="menu">
+        <h3>Menu:</h3>
+        <label><input type="checkbox" class="menu-item" id="Guitar" value="Guitar" data-price="350"> Guitar (₱350)</label><br>
+        <label><input type="checkbox" class="menu-item" id="Violin"    value="Violin" data-price="500"> Violin (₱500)</label><br>
+        <label><input type="checkbox" class="menu-item" id="Saxophone"     value="Saxophone" data-price="700"> Saxophone (₱700)</label><br>
+        <label><input type="checkbox" class="menu-item" id="Banjo"       value="Banjo" data-price="300"> Banjo (₱300)</label><br>
+        <label><input type="checkbox" class="menu-item" id="Melodica"     value="Melodica" data-price="250"> Melodica (₱250)</label><br>
+    </div>
+
+    <div class="details">
+        <h2>Customer Details:</h2>
+        <label>Customer Name:</label>
+        <input type="text" id="name" required>
+        <label>Address:</label>
+        <input type="text" id="address" required>
+        <label>Contact Number:</label>
+        <input type="text" id="contact" required>
+    </div>
+
+    <button class="button" id="createOrder">Create Order</button>
+<a class="back-btn" href="https://nc4l4ngl4ng.github.io/Greenhills_ICT10_Q1Seatwork2_Calanglang_Neriza/">← Back to Home</a>
+    <div id="summary"></div>
+</div>
+
+<script>
+document.getElementById("createOrder").addEventListener("click", async () => {
+    const name = document.getElementById("name").value;
+    const address = document.getElementById("address").value;
+    const contact = document.getElementById("contact").value;
+    const items = Array.from(document.querySelectorAll('input[name="items"]:checked')).map(cb => cb.value);
+
+    if (!name || !address || !contact || items.length === 0) {
+        alert("Please fill all fields and select at least one item.");
+        return;
+    }
+
+    const response = await fetch("/create_order", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ name, address, contact, items })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("summary").innerHTML = `
+        <div class="summary-box">
+            <h2>Order Summary:</h2>
+            <p><strong>Order for:</strong> ${data.name}</p>
+            <p><strong>Address:</strong> ${data.address}</p>
+            <p><strong>Contact Number:</strong> ${data.contact}</p>
+            <p><strong>Items:</strong> ${data.selected_items.join(", ")}</p>
+            <p><strong>Total:</strong> ₱${data.total}</p>
+            <a class="back-btn" href="#" onclick="window.location.reload()">← Back to Home</a>
+        </div>
+    `;
+});
+</script>
+</body>
+</html>
